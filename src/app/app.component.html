@@ -1,0 +1,27 @@
+<mat-card>
+<form [formGroup]="airlineRequestForm" class="Inputform">
+  <p>
+    Message Types:
+    
+    <mat-checkbox class="checboxFormater" formControlName="METAR">METAR</mat-checkbox>
+    <mat-checkbox class="checboxFormater" formControlName="SIGMET">SIGMET</mat-checkbox>
+    <mat-checkbox class="checboxFormater" formControlName="TAF" >TAF</mat-checkbox>
+  </p>
+
+  <p>
+    Airports:
+    <mat-form-field class="textField1" appearance="fill">
+      <input matInput type="text" matInput formControlName="airports" />
+    </mat-form-field>
+  </p>
+
+  <p>Countries:
+  <mat-form-field class="textField2" appearance="fill">
+    <input matInput type="text" matInput formControlName="countries" />
+  </mat-form-field>
+  </p>
+</form>
+<div class="createBriefing">
+<button  mat-raised-button (click)="requestData()">Create Briefing</button>
+</div>
+</mat-card>

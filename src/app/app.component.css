@@ -1,0 +1,35 @@
+.Inputform{
+   padding: 20px;
+}
+
+::ng-deep .mat-checkbox-ripple .mat-ripple-element {
+    background-color: #4B0082 !important;
+  }
+  
+  ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: #4B0082 !important;
+  }
+  
+  ::ng-deep .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background-color: #4B0082 !important;
+  }
+
+  .checboxFormater{
+    padding-left: 20px;
+  }
+
+  .textField1{
+    padding-left: 65px;
+  }
+
+  .textField2{
+    padding-left: 55px;
+  }
+
+  .createBriefing{
+    padding-left: 260px;
+  }
+
+  .mat-form-field{
+    width:240px !important;
+ }
