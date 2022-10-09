@@ -174,5 +174,8 @@ export class AppComponent {
           });
         }
       });
+      this.types.length=0;
+      this.stations.length=0;
+      this.countries.length=0;
   }
 }
