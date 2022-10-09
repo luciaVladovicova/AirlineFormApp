@@ -34,6 +34,11 @@
   width: 240px !important;
 }
 
+.uppercase{
+  text-transform: uppercase;
+}
+
+
 table {
   border-collapse: collapse;
   width: 80%;

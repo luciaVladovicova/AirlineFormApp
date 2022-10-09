@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -35,7 +36,7 @@ export class AppComponent {
 
   //-----------------------------------------------------------------------------
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder) {}
+  constructor(private http: HttpClient, private formBuilder: FormBuilder){}
 
   airlineRequestForm: FormGroup = this.formBuilder.group({
     airports: [''],
@@ -47,6 +48,8 @@ export class AppComponent {
 
   ngOnInit() {}
 
+
+
   requestData() {
     var body;
     var includeBody;
@@ -55,9 +58,14 @@ export class AppComponent {
     //this.countries=["SQ"]
 
     //types checkboxes ------------------------------------------------------------------------------------------
+    
     var metar = this.airlineRequestForm.get('METAR')?.value;
     var signet = this.airlineRequestForm.get('SIGMET')?.value;
     var taf = this.airlineRequestForm.get('TAF')?.value;
+
+
+    
+    
 
     if (metar == true) {
       this.types = ['METAR'];
@@ -83,6 +91,8 @@ export class AppComponent {
       this.types = ['SIGMET', 'TAF_LONGTAF'];
     }
 
+    
+
     //-------------------------------------------------------------------------------------------------------------------------------------
 
     //airports -------------------------------------------------------------------------
@@ -98,6 +108,30 @@ export class AppComponent {
     this.countries = loadTextCounties.split(' ');
 
     //-------------------------------------------------------------------------------------------
+    console.log("types:",this.types );
+    console.log("airports:",this.stations[0]);
+    console.log("Countries:",this.countries[0]);
+  
+    if((this.types.length==0)&&(this.stations[0]=="")&&(this.countries[0]=="")){
+     return  alert("Mandatory fields are empty.");
+    }
+
+     if((this.types.length!=0)&&(this.stations[0]=="")&&(this.countries[0]=="")){
+      this.types.length=0;
+     return alert("Mandatory fields are empty.");
+    }
+
+    if((this.types.length==0)&&(this.stations[0]!="")){
+      return  alert("Mandatory fields are empty.");
+    }
+  
+    if((this.types.length==0)&&(this.countries[0]!="")){
+      return  alert("Mandatory fields are empty.");
+    }
+
+    if((this.types.length==0)&&(this.stations.length!=0)&&(this.countries.length!=0)){
+      return  alert("Mandatory fields are empty.");
+    }
 
     includeBody = {
       id: 'briefing01',
@@ -108,6 +142,8 @@ export class AppComponent {
     body = { id: 'query01', method: 'query', params: [includeBody] };
 
     console.log(body);
+
+  
 
     this.http
       .post<any>('https://ogcie.iblsoft.com/ria/opmetquery', body)
