@@ -4,7 +4,6 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogErrorComponent } from './dialog-error/dialog-error.component';
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,6 +12,7 @@ import { DialogErrorComponent } from './dialog-error/dialog-error.component';
 export class AppComponent {
   title = 'airlineFormApp';
   checked = false;
+  resourcesLoaded = true;
   types: string[] = [];
 
   //-- input ----------------------------------------------------------------------------
@@ -38,10 +38,14 @@ export class AppComponent {
 
   //-----------------------------------------------------------------------------
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder,public dialog: MatDialog){}
+  constructor(
+    private http: HttpClient,
+    private formBuilder: FormBuilder,
+    public dialog: MatDialog
+  ) {}
 
   openDialog() {
-     this.dialog.open(DialogErrorComponent);
+    this.dialog.open(DialogErrorComponent);
   }
 
   airlineRequestForm: FormGroup = this.formBuilder.group({
@@ -54,24 +58,16 @@ export class AppComponent {
 
   ngOnInit() {}
 
-
-
   requestData() {
+    this.resourcesLoaded = false;
     var body;
     var includeBody;
-    // this.types=["METAR", "TAF_LONGTAF"];
-    // var stationsTest=["LKPR", "EGLL"];
-    //this.countries=["SQ"]
 
     //types checkboxes ------------------------------------------------------------------------------------------
-    
+
     var metar = this.airlineRequestForm.get('METAR')?.value;
     var signet = this.airlineRequestForm.get('SIGMET')?.value;
     var taf = this.airlineRequestForm.get('TAF')?.value;
-
-
-    
-    
 
     if (metar == true) {
       this.types = ['METAR'];
@@ -97,8 +93,6 @@ export class AppComponent {
       this.types = ['SIGMET', 'TAF_LONGTAF'];
     }
 
-    
-
     //-------------------------------------------------------------------------------------------------------------------------------------
 
     //airports -------------------------------------------------------------------------
@@ -114,31 +108,48 @@ export class AppComponent {
     this.countries = loadTextCounties.split(' ');
 
     //-------------------------------------------------------------------------------------------
-    console.log("types:",this.types );
-    console.log("airports:",this.stations[0]);
-    console.log("Countries:",this.countries[0]);
-  
-    if((this.types.length==0)&&(this.stations[0]=="")&&(this.countries[0]=="")){
-     return  this.openDialog();
+    console.log('types:', this.types);
+    console.log('airports:', this.stations[0]);
+    console.log('Countries:', this.countries[0]);
+
+    if (
+      this.types.length == 0 &&
+      this.stations[0] == '' &&
+      this.countries[0] == ''
+    ) {
+      this.resourcesLoaded = true;
+      return this.openDialog();
     }
 
-     if((this.types.length!=0)&&(this.stations[0]=="")&&(this.countries[0]=="")){
-      this.types.length=0;
-     return this.openDialog();
+    if (
+      this.types.length != 0 &&
+      this.stations[0] == '' &&
+      this.countries[0] == ''
+    ) {
+      this.resourcesLoaded = true;
+      this.types.length = 0;
+      return this.openDialog();
     }
 
-    if((this.types.length==0)&&(this.stations[0]!="")){
-      return  this.openDialog();
-    }
-  
-    if((this.types.length==0)&&(this.countries[0]!="")){
-      return  this.openDialog();
+    if (this.types.length == 0 && this.stations[0] != '') {
+      this.resourcesLoaded = true;
+      return this.openDialog();
     }
 
-    if((this.types.length==0)&&(this.stations.length!=0)&&(this.countries.length!=0)){
-      return  this.openDialog();
+    if (this.types.length == 0 && this.countries[0] != '') {
+      this.resourcesLoaded = true;
+      return this.openDialog();
     }
 
+    if (
+      this.types.length == 0 &&
+      this.stations.length != 0 &&
+      this.countries.length != 0
+    ) {
+      this.resourcesLoaded = true;
+      return this.openDialog();
+    }
+    this.resourcesLoaded = false;
     includeBody = {
       id: 'briefing01',
       reportTypes: this.types,
@@ -149,8 +160,6 @@ export class AppComponent {
 
     console.log(body);
 
-  
-
     this.http
       .post<any>('https://ogcie.iblsoft.com/ria/opmetquery', body)
       .subscribe((data) => {
@@ -159,8 +168,6 @@ export class AppComponent {
         console.log(data.result.length);
         for (var i = 0; i <= data.result.length; i++) {
           this.item = data.result[i].stationId;
-          //console.log(item);
-          //console.log(item.stationId);
           this.stationId = data.result[i].stationId;
           this.queryType = data.result[i].queryType;
           this.reportTime = data.result[i].reportTime;
@@ -172,10 +179,11 @@ export class AppComponent {
             reportTime: this.reportTime,
             reportbody: this.text,
           });
+          this.resourcesLoaded = true;
         }
       });
-      this.types.length=0;
-      this.stations.length=0;
-      this.countries.length=0;
+    this.types.length = 0;
+    this.stations.length = 0;
+    this.countries.length = 0;
   }
 }
