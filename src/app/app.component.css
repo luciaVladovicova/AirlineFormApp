@@ -1,35 +1,53 @@
-.Inputform{
-   padding: 20px;
+.Inputform {
+  padding: 20px;
 }
 
 ::ng-deep .mat-checkbox-ripple .mat-ripple-element {
-    background-color: #4B0082 !important;
-  }
-  
-  ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
-    background-color: #4B0082 !important;
-  }
-  
-  ::ng-deep .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
-    background-color: #4B0082 !important;
-  }
+  background-color: #4b0082 !important;
+}
 
-  .checboxFormater{
-    padding-left: 20px;
-  }
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: #4b0082 !important;
+}
 
-  .textField1{
-    padding-left: 65px;
-  }
+::ng-deep .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: #4b0082 !important;
+}
 
-  .textField2{
-    padding-left: 55px;
-  }
+.checboxFormater {
+  padding-left: 20px;
+}
 
-  .createBriefing{
-    padding-left: 260px;
-  }
+.textField1 {
+  padding-left: 65px;
+}
 
-  .mat-form-field{
-    width:240px !important;
- }
+.textField2 {
+  padding-left: 55px;
+}
+
+.createBriefing {
+  padding-left: 260px;
+}
+
+.mat-form-field {
+  width: 240px !important;
+}
+
+table {
+  border-collapse: collapse;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+}
+
+td {
+  border-width: 20px;
+}
+
+table,
+th,
+td {
+  border: 1px solid;
+}

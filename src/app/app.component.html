@@ -1,27 +1,49 @@
 <mat-card>
-<form [formGroup]="airlineRequestForm" class="Inputform">
-  <p>
-    Message Types:
-    
-    <mat-checkbox class="checboxFormater" formControlName="METAR">METAR</mat-checkbox>
-    <mat-checkbox class="checboxFormater" formControlName="SIGMET">SIGMET</mat-checkbox>
-    <mat-checkbox class="checboxFormater" formControlName="TAF" >TAF</mat-checkbox>
-  </p>
+  <mat-card-content>
+  <form [formGroup]="airlineRequestForm" class="Inputform">
+    <p>
+      Message Types:
 
-  <p>
-    Airports:
-    <mat-form-field class="textField1" appearance="fill">
-      <input matInput type="text" matInput formControlName="airports" />
-    </mat-form-field>
-  </p>
+      <mat-checkbox class="checboxFormater" formControlName="METAR"
+        >METAR</mat-checkbox
+      >
+      <mat-checkbox class="checboxFormater" formControlName="SIGMET"
+        >SIGMET</mat-checkbox
+      >
+      <mat-checkbox class="checboxFormater" formControlName="TAF"
+        >TAF</mat-checkbox
+      >
+    </p>
 
-  <p>Countries:
-  <mat-form-field class="textField2" appearance="fill">
-    <input matInput type="text" matInput formControlName="countries" />
-  </mat-form-field>
-  </p>
-</form>
-<div class="createBriefing">
-<button  mat-raised-button (click)="requestData()">Create Briefing</button>
-</div>
+    <p>
+      Airports:
+      <mat-form-field class="textField1" appearance="fill">
+        <input matInput type="text" matInput formControlName="airports" />
+      </mat-form-field>
+    </p>
+
+    <p>
+      Countries:
+      <mat-form-field class="textField2" appearance="fill">
+        <input matInput type="text" matInput formControlName="countries" />
+      </mat-form-field>
+    </p>
+  </form>
+  <div class="createBriefing">
+    <button mat-raised-button (click)="requestData()">Create Briefing</button>
+  </div>
+</mat-card-content>
+</mat-card>
+
+<mat-card>
+<mat-card-content>
+  <table>
+    <tr *ngFor="let airline of biefingList">
+      <td>{{ airline.stationId }}</td>
+      <td>{{ airline.reportType }}</td>
+      <td>{{ airline.reportTime | date: "dd.MM.YYYY hh:mm:ss" }}</td>
+      <td>{{ airline.reportbody }}</td>
+    </tr>
+  </table>
+</mat-card-content>
 </mat-card>

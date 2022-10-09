@@ -16,6 +16,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatCheckboxModule} from '@angular/material/checkbox'
+import {MatGridListModule} from '@angular/material/grid-list'
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox'
     MatButtonToggleModule,
     MatDialogModule,
     MatCheckboxModule,
+    MatGridListModule,
    
   ],
   exports: [
@@ -58,6 +60,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox'
     MatButtonToggleModule,
     MatDialogModule,
     MatCheckboxModule,
+    MatGridListModule,
   ],
 })
 export class MaterialModule {}

@@ -12,10 +12,28 @@ export class AppComponent {
   checked = false;
   types: string[] = [];
 
+  //-- input ----------------------------------------------------------------------------
   loadStringAirports: any;
   loadStringCountries: any;
   stations: string[] = [];
   countries: string[] = [];
+
+  //----------------------------------------------------------------------------------
+
+  //-- output ----------------------------------------------------------------------
+  stationId: any;
+  queryType: any;
+  reportTime: any;
+  text: any;
+  item: any;
+  biefingList: Array<{
+    stationId: string;
+    reportType: string;
+    reportTime: string;
+    reportbody: string;
+  }> = [];
+
+  //-----------------------------------------------------------------------------
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder) {}
 
@@ -94,8 +112,25 @@ export class AppComponent {
     this.http
       .post<any>('https://ogcie.iblsoft.com/ria/opmetquery', body)
       .subscribe((data) => {
-        // this.postId = data.id;
         console.log(data);
+        console.log(data.result[0]);
+        console.log(data.result.length);
+        for (var i = 0; i <= data.result.length; i++) {
+          this.item = data.result[i].stationId;
+          //console.log(item);
+          //console.log(item.stationId);
+          this.stationId = data.result[i].stationId;
+          this.queryType = data.result[i].queryType;
+          this.reportTime = data.result[i].reportTime;
+          this.text = data.result[i].text;
+
+          this.biefingList.push({
+            stationId: this.stationId,
+            reportType: this.queryType,
+            reportTime: this.reportTime,
+            reportbody: this.text,
+          });
+        }
       });
   }
 }
