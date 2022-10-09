@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogErrorComponent } from './dialog-error/dialog-error.component';
 
 
 @Component({
@@ -36,7 +38,11 @@ export class AppComponent {
 
   //-----------------------------------------------------------------------------
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder){}
+  constructor(private http: HttpClient, private formBuilder: FormBuilder,public dialog: MatDialog){}
+
+  openDialog() {
+     this.dialog.open(DialogErrorComponent);
+  }
 
   airlineRequestForm: FormGroup = this.formBuilder.group({
     airports: [''],
@@ -113,24 +119,24 @@ export class AppComponent {
     console.log("Countries:",this.countries[0]);
   
     if((this.types.length==0)&&(this.stations[0]=="")&&(this.countries[0]=="")){
-     return  alert("Mandatory fields are empty.");
+     return  this.openDialog();
     }
 
      if((this.types.length!=0)&&(this.stations[0]=="")&&(this.countries[0]=="")){
       this.types.length=0;
-     return alert("Mandatory fields are empty.");
+     return this.openDialog();
     }
 
     if((this.types.length==0)&&(this.stations[0]!="")){
-      return  alert("Mandatory fields are empty.");
+      return  this.openDialog();
     }
   
     if((this.types.length==0)&&(this.countries[0]!="")){
-      return  alert("Mandatory fields are empty.");
+      return  this.openDialog();
     }
 
     if((this.types.length==0)&&(this.stations.length!=0)&&(this.countries.length!=0)){
-      return  alert("Mandatory fields are empty.");
+      return  this.openDialog();
     }
 
     includeBody = {
