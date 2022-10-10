@@ -50,6 +50,7 @@
 <mat-card>
   <mat-card-content>
     <mat-spinner class="Loader" *ngIf="resourcesLoaded == false"></mat-spinner>
+
     <table>
       <tr *ngFor="let airline of biefingList">
         <td>{{ airline.stationId }}</td>

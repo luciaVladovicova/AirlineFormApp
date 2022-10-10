@@ -108,9 +108,6 @@ export class AppComponent {
     this.countries = loadTextCounties.split(' ');
 
     //-------------------------------------------------------------------------------------------
-    console.log('types:', this.types);
-    console.log('airports:', this.stations[0]);
-    console.log('Countries:', this.countries[0]);
 
     if (
       this.types.length == 0 &&
@@ -158,16 +155,10 @@ export class AppComponent {
     };
     body = { id: 'query01', method: 'query', params: [includeBody] };
 
-    console.log(body);
-
     this.http
       .post<any>('https://ogcie.iblsoft.com/ria/opmetquery', body)
       .subscribe((data) => {
-        console.log(data);
-        console.log(data.result[0]);
-        console.log(data.result.length);
-        for (var i = 0; i <= data.result.length; i++) {
-          this.item = data.result[i].stationId;
+        for (var i = 0; i < data.result.length; i++) {
           this.stationId = data.result[i].stationId;
           this.queryType = data.result[i].queryType;
           this.reportTime = data.result[i].reportTime;
@@ -179,6 +170,7 @@ export class AppComponent {
             reportTime: this.reportTime,
             reportbody: this.text,
           });
+
           this.resourcesLoaded = true;
         }
       });
